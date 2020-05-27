@@ -17,7 +17,16 @@ app.get('/api/producto', (req,res) => {
      res.status(200).send({producto: []})
 })
 
-app.get('/api/producto/:prodictoID', (req,res) => {
+app.get('/api/producto/:productoID', (req, res) => {
+
+let productoID = req.params.productoID
+
+    neko.findById(productoID, (err, productos) => {
+        if (err) return res.status(500).send({mesage:'Error al realizar la peticion'})
+        if (!productos) return res.status(404).send({mesage: 'producto no exite papu'})
+
+        res.status(200).send({productos})
+    })
    
 })
 app.post('/api/producto', (req,res) => {
